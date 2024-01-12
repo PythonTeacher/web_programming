@@ -1,0 +1,19 @@
+1. Template Engine
+Expressjs.com 사이트 resources 메뉴 > Template Engine
+
+2. 어플리케이션 생성
+npm i -g express-generator
+-> express --view=ejs 51_music
+
+글로벌 설치 없이 최신버전으로 바로 생성
+-> npx express-generator --view=pug 52_movie
+
+3. npm vs npx
+npm은 모듈 의존성에 따라 모든 패키지를 로컬에 설치하게 됨
+한번 설치된 모듈은 그대로 사용하기 때문에 변경이 잦은 패키지의 경우
+재설치를 하지 않으면 이전 버전을 계속 사용할 수 있음
+
+npx는 설치가 아니라 실행을 위한 도구임
+모듈을 로컬에 저장하지 않고, 매번 최신 버전의 파일만을 임시로 불러와 실행 시킨 후
+다시 그 모듈을 삭제하는 방식으로 돌아갑니다.
+따라서, 1회성 보일러 플레이트에 의한 프로젝트 생성과 같은 모듈에 효과적이라고 할 수 있습니다.
