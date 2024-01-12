@@ -1,0 +1,22 @@
+{
+  "musicList": [
+    {
+      "id": 1,
+      "title": "아무노래",
+      "singer": "지코",
+      "active": true
+    },
+    {
+      "id": 2,
+      "title": "비",
+      "singer": "폴킴",
+      "active": false
+    },
+    {
+      "id": 3,
+      "title": "별보러가자",
+      "singer": "적재",
+      "active": false
+    }
+  ]
+}
