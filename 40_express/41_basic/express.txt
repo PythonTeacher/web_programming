@@ -1,0 +1,93 @@
+익스프레스 JS
+
+1. 어플리케이션 (뼈대)
+익스프레스 인스턴스를 어플리케이션이라고 한다.
+(익스프레스 함수를 통해 인스턴스를 만들 수 있는데 그것을 어플리케이션)
+서버에 필요한 기능인 미들웨어를 어플리케이션에 추가한다.
+라우팅 설정을 할 수 있다.
+서버를 요청 대기 상태로 만들 수 있다.
+
+2. 미들웨어 (뼈대에 들어갈 추가적으로 필요한 기능들)
+미들웨어는 함수들의 연속이다
+
+// next : 다음 mw 콜백함수
+const mw = (req, res, next) => {
+  console.log('mw..');
+  next();
+}
+
+const mw2 = (req, res, next) => {
+  console.log('mw2..');
+  next();
+}
+
+// 요 순서가 중요
+app.use(mw)
+app.use(mw2)
+
+// morgan : 로깅을 위한 미들웨어
+npm i morgan
+
+const logger = require('morgan')
+
+app.use(logger('dev'))
+
+// 에러 미들웨어
+const mw = (req, res, next) = {
+  //throw Error('error');
+  next()
+}
+// 인자가 4개
+const error = (err, req, res, next) => {
+  console.log(err.message);
+}
+
+app.use(mv);
+app.use(error);
+
+3. 라우팅
+요청 url에 대해 적절한 핸들러 함수로 연결해 주는 기능을 라우팅이라고 한다.
+요청에 따라 분기해 주는 기능, req에 따라 다른 로직 수행
+어플리케이션의 get(), post() 메소드로 구현할 수 있다.
+라우팅을 위한 전용 Router 클래스를 사용할 수도 있다.
+
+
+REST API
+
+1. HTTP 요청
+모든 자원은 명사로 식별한다
+HTTP 경로로 자원을 요청한다
+ex) GET /users, GET /users/{id}
+
+RESTAPI test : reqres.in
+
+end point는 동일하게 가고, action은 메소드로 구분
+test.com/user [GET]
+test.com/user [POST]
+test.com/user [PUT]
+test.com/user [DELETE]
+
+(bad case)
+test.com/user/search
+test.com/user/create
+test.com/user/update
+test.com/user/delete
+
+
+2. HTTP 메서드
+GET : 자원을 조회
+POST : 자원을 생성
+PUT : 자원을 갱신
+DELETE : 자원을 삭제
+
+이는 익스프레스 어플리케이션의 메소드로 구현되어 있다
+
+3. HTTP 상태코드
+• 200: 성공(success), GET, PUT
+• 201: 작성됨(created), POST
+• 204: 내용 없음 (No Conent), DELETE
+• 400: 잘못된 요청 (Bad Request)
+• 401: 권한 없음 (Unauthorized)
+• 404: 찾을 수 없음 (Not found)
+• 409: 충돌 (Conflict)
+• 500: 서버 에러 (Interel server error)
