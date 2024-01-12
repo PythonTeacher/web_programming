@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <% include ../header %>
+  <body>
+    <% include ../menu %>
+    <p><h3 class="section-heading">Music Create</h3></p>
+    <form id="createForm">
+      <!-- Material input -->
+      <div class="md-form">
+        <input 
+          type="text"
+          class="form-control"
+          id="singer"
+          required
+        /> 
+        <label for="singer">input singer</label>
+      </div>
+      <div class="md-form">
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          required
+        /> 
+        <label for="title">input title</label>
+      </div>
+      <button class="btn btn-primary">저장</button>
+    </form>
+    <% include ../footer %>
+    <script type="text/javascript">
+      $(function () {
+        $("#createForm").submit(function (event) {
+          event.preventDefault();
+          // 등록        
+          const singer = $("#singer").val();
+          const title = $("#title").val();
+
+          $.ajax({
+            url: "/api/music",
+            type: "POST",
+            data: { singer, title },
+            success: function () {
+              location.href = "/api/music";
+            },
+            error: function (request, status, error) {
+              alert(request.responseText);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <% include ../header %>
+  <body>
+    <% include ../menu %>
+    <!-- Material form register -->
+    <div class="card">
+      <h5 class="card-header info-color white-text text-center py-4">
+        <strong>Sign up</strong>
+      </h5>
+
+      <!--Card content-->
+      <div class="card-body px-lg-5 pt-0">
+        <!-- Form -->
+        <form
+          id="signupForm"
+          class="text-center"
+          style="color: #757575;"
+          action="#!"
+        >
+          <!-- E-mail -->
+          <div class="md-form">
+            <input type="email" id="email" class="form-control" required />
+            <label for="email">E-mail</label>
+          </div>
+
+          <!-- Password -->
+          <div class="md-form">
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              required
+            />
+            <label for="password">Password</label>
+          </div>
+
+          <!-- Name -->
+          <div class="md-form">
+            <input type="text" id="name" class="form-control" required />
+            <label for="name">Name</label>
+          </div>
+
+          <!-- Sign up button -->
+          <button
+            class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+            type="submit"
+          >
+            Sign up
+          </button>
+        </form>
+        <!-- Form -->
+      </div>
+    </div>
+    <!-- Material form register -->
+
+    <% include ../footer %>
+    <script type="text/javascript">
+      $(function () {
+        $("#signupForm").submit(function (event) {
+          event.preventDefault();
+
+          const email = $("#email").val();
+          const password = $("#password").val();
+          const name = $("#name").val();
+
+          $.ajax({
+            url: "/api/user/signup",
+            type: "POST",
+            data: { email, password, name },
+          })
+            .done((result) => {
+              location.href = "/api/user/login";
+            })
+            .fail((request, status, error) => {
+              // 응답코드: request.status
+              alert(request.responseText);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

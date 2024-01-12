@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <% include ../header %>
+  <body>
+    <% include ../menu %>
+    <p><h3 class="section-heading">Movie Update</h3></p>
+    <form id="updateForm">
+      <div class="md-form">
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          value="<%= result.title %>"
+          required
+        /> 
+        <label for="title">input title</label>
+      </div>
+      <div class="md-form">
+        <input
+          type="text"
+          class="form-control"
+          id="director"
+          value="<%= result.director %>"
+          required
+        /> 
+        <label for="director">input director</label>
+      </div>
+      <div class="md-form">
+        <input
+          type="text"
+          class="form-control"
+          id="year"
+          value="<%= result.year %>"
+          required
+        /> 
+        <label for="year">input year</label>
+      </div>
+      <button class="btn btn-primary">저장</button>
+    </form>
+    <% include ../footer %>
+    <script type="text/javascript">
+      $(function () {
+        $("#updateForm").submit(function (event) {
+          event.preventDefault();
+          // 수정
+          const title = $("#title").val();
+          const director = $("#director").val();
+          const year = $("#year").val();
+
+          $.ajax({
+            url: "/api/movie/<%= result.id %>",
+            type: "PUT",
+            data: { title, director, year },
+            success: function () {
+              location.href = "/api/movie/<%= result.id %>";
+            },
+            error: function (request, status, error) {
+              alert(request.responseText);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

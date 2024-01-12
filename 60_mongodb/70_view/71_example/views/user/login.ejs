@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <% include ../header %>
+  <body>
+    <% include ../menu %>
+    <!-- Material form login -->
+    <div class="card">
+      <h5 class="card-header info-color white-text text-center py-4">
+        <strong>Log In</strong>
+      </h5>
+
+      <!--Card content-->
+      <div class="card-body px-lg-5 pt-0">
+        <!-- Form -->
+        <form
+          id="loginForm"
+          class="text-center"
+          style="color: #757575;"
+          action="#!"
+        >
+          <!-- Email -->
+          <div class="md-form">
+            <input type="email" id="email" class="form-control" required />
+            <label for="email">E-mail</label>
+          </div>
+
+          <!-- Password -->
+          <div class="md-form">
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              required
+            />
+            <label for="password">Password</label>
+          </div>
+
+          <!-- Sign in button -->
+          <button
+            class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+            type="submit"
+          >
+            Sign in
+          </button>
+        </form>
+        <!-- Form -->
+      </div>
+    </div>
+    <!-- Material form login -->
+
+    <% include ../footer %>
+    <script type="text/javascript">
+      $(function () {
+        $("#loginForm").submit(function (event) {
+          event.preventDefault();
+          // 수정
+          const email = $("#email").val();
+          const password = $("#password").val();
+
+          $.ajax({
+            url: "/api/user/login",
+            type: "POST",
+            data: { email, password },
+          })
+            .done(() => {
+              location.href = "/";
+            })
+            .fail((request, status, error) => {
+              alert(request.responseText);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

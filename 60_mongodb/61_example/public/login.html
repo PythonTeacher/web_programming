@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <!-- Custom styles for this template -->
+    <link href="stylesheets/login.css" rel="stylesheet" />
+    <title>Login</title>
+  </head>
+  <body class="text-center">
+    <form class="form-signin" id="loginForm">
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <label for="userId" class="sr-only">User id</label>
+      <input
+        type="text"
+        id="userId"
+        class="form-control"
+        placeholder="User id"
+        required
+        autofocus
+      />
+      <label for="userPwd" class="sr-only">Password</label>
+      <input
+        type="password"
+        id="userPwd"
+        class="form-control"
+        placeholder="Password"
+        required
+      />
+      <button class="btn btn-lg btn-primary btn-block" type="submit">
+        Sign In
+      </button>
+
+      <div>
+        <label> <a href="/signup.html"> 회원 가입</a> </label>
+      </div>
+      <!--<p><input type="text" id="userId" placeholder="아이디" /></p>
+      <p><input type="password" id="userPwd" placeholder="비밀번호" /></p>
+      <p><button type="submit">로그인</button></p-->
+    </form>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!--script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      //$(document).ready(function () {
+      $(function () {
+        $("#loginForm").submit((event) => {
+          event.preventDefault();
+          const userId = $("#userId").val();
+          const userPwd = $("#userPwd").val();
+          /*$.ajax({
+            method: "POST",
+            url: "/login",
+            data: { userId, userPwd },
+            dataType: "json",
+            statusCode: {
+              400: () => alert("입력값 오류입니다."),
+              404: () => alert("잘못된 로그인 정보입니다."),
+              500: () => alert("서버 오류입니다."),
+              200: (data) => {
+                alert(data.name);
+              },
+            },
+          });*/
+          $.post("/login", { userId, userPwd })
+            .done(function (data) {
+              location.href = "/main.html";
+            })
+            .fail(function (jqXHR) {
+              switch (jqXHR.status) {
+                case 400:
+                  alert("입력값 오류입니다.");
+                  break;
+                case 404:
+                  alert("잘못된 로그인 정보입니다.");
+                  break;
+                case 500:
+                  alert("서버 오류입니다.");
+                  break;
+              }
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <% include ../header %>
+  <body>
+    <% include ../menu %>
+    <p><h3 class="section-heading">Music Detail</h3></p>
+    <div class="md-form">
+      <input 
+        type="text"
+        class="form-control"
+        id="singer"
+        value="<%= result.singer %>"
+        readonly
+      />
+    </div>
+    <div class="md-form">
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        value="<%= result.title %>"
+        readonly
+      />
+    </div>
+    <button id="listBtn" class="btn btn-primary">목록</button>
+    <button id="updateBtn" class="btn btn-primary">수정</button>
+    <button id="deleteBtn" class="btn btn-primary">삭제</button>
+    <% include ../footer %>
+    <script type="text/javascript">
+      $(function () {
+        // 목록
+        $("#listBtn").on("click", function () {
+          location.href = "/api/music";
+        });
+        // 수정
+        $("#updateBtn").on("click", function () {
+          location.href = "/api/music/<%=result.id%>/edit";
+        });
+        // 삭제
+        $("#deleteBtn").on("click", function () {
+          const result = confirm("삭제하시겠습니까?");
+          if (result) {
+            $.ajax({
+              url: "/api/music/<%=result.id%>",
+              type: "DELETE",
+              success: function () {
+                location.href = "/api/music";
+              },
+              error: function (request, status, error) {
+                alert(request.responseText);
+              },
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

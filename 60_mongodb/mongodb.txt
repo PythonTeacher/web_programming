@@ -1,0 +1,71 @@
+1. 관계형 데이터베이스 : Oracle, MySQL, SQL Server, PostgreSQL 등
+기존의 데이터베이스들은 대부분 관계형 모델에 기반을 두고 있어
+대부분 SQL이라는 질의문에 의해 데이터베이스를 수정, 갱신, 저장, 검색하도록 구성되어 있습니다. 
+테이블 스키마가 고정됨
+=> ranking
+=> Tibero
+
+2. NoSQL (non SQL, Not Only SQL) : MongoDB
+원래는 Non SQL의 의미이지만, SQL 쿼리 언어를 사용할 수 있어 Not only SQL로 불리기도 한다.
+NoSQL 데이터베이스는 단순 검색 및 추가 작업을 위한 매우 최적화된 키 값 저장 공간임
+RDBMS와는 다르게 테이블 스키마가 유동적이라 다양한 형태들의 데이터를 유연하게 처리할 수 있습니다. 
+
+=> 빅데이터
+NoSQL에 주목하게 된 이유는 데이터 양이 커질 수록 많이 사용되던 관계형 데이터베이스로는 
+성능이 떨어지기 때문입니다. RDBMS의 경우 시스템의 신뢰도를 높이는데 필요한 장치를 많이 갖고 있으므로,
+SQL문을 읽어 처리하는데 많은 리소스를 사용하며 성능이 떨어지는 경우가 많았습니다.
+
+NoSQL은 성능을 최우선으로 생각하기 때문에 실시간으로 처리해야 하는 경우나 
+대용량 처리를 해야 하는 시스템에 활용되기 시작했습니다.  
+NoSQL의 가장 큰 특징은 확장성과 높은 성능, 그리고 다양한 데이터 형태를 수용할 수 있다는 것입니다.
+
+3. MongoDB 설치 : 구름보고 설치하기 -> version 확인 mongo --version
+
+4. mongoDB 이해 : mongodb.com -> Docs -> Server -> mongo Shell Edition
+-> Getting Started -> Databases and Collections -> MongoDB CRUD Operations
+(JSON에 비해 BSON은 프로토콜 헤더 정보들이 들어가 구문 해석이 더 빨리됨
+ 공간은 BSON이 더 많은 공간을 차지함, JSON은 데이터 전송을 위한 규약인 반면
+ BSON은 데이터 저장을 위한 규약임, JSON에서는 지원하지 않는 타입을 지원함 -> Date, BinData 타입)
+
+5. 몽고DB 실행
+1) data 폴더 생성 
+2) mongod --dbpath data (Database Server)
+3) cmd -> mongo 실행 (Database Client)
+// 데이터베이스 생성 -> 컬렉션 생성 -> 문서 생성
+// 데이터베이스 생성 -> 문서 생성 (컬렉션 자동 생성)
+
+4) 데이터베이스 생성 -> use database이름 -> use test
+5) db -> 현재 사용중인 데이터베이스
+6) show dbs -> 데이터베이스 리스트 (컬렉션을 추가해야 보임)
+
+7) Collection 생성 -> db.createCollection("collection명") -> db.createCollection("music")
+8) Collection 확인 -> show collections
+9) Collection 제거 -> db.music.drop()
+-> Collection은 따로 만들지 않아도 document를 추가하면 자동으로 컬렉션이 생성됨
+
+10) Document 추가 -> db.컬렉션명.insert() -> db.music.insert({singer:"xx", title:"xx"})
+
+11) Document 조회 -> db.컬렉션명.find() -> db.music.find()
+- 깔끔하게 조회 -> db.music.find().pretty()
+- 조회 조건 추가 -> db.music.find({singer: "아이유"}).pretty()    // query criteria
+- 특정 필드만 보여주기 -> db.music.find({}, {_id: 0, singer: 1, title: 1})  // projection
+- 조회건수 지정 -> db.music.find().limit(1)
+
+12) Document 수정
+- document 전체 업데이트(id 유지) -> db.music.update({singer:"아이유"}, {singer:"적재", title:"별"})
+- 특정 필드 업데이트 -> db.music.update({singer:"아이유"}, {$set: {title:"에잇"}})
+
+13) Document 제거 -> db.컬렉션명.remove() -> db.music.remove({singer: "아이유"})
+- remove all -> db.music.remove({})
+
+14) 데이터베이스 삭제 -> db.dropDatabase()
+
+6. MongoDB Compass (GUI 도구)
+1) 설치 : mongodb.com > Software > Compass
+2) MSI 버전 설치
+3) MongoDB Compass로 검색
+
+7. Mongoose 사용하기
+1) Getting Started
+2) Guides
+3) API -> Model
